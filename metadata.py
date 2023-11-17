@@ -13,11 +13,11 @@ pgsql_parameter = {
 }
 
 print("Connecting PostgreSQL ...")
-conn = psycopg2.connect(host=pgsql_parameter['host'],
-                        port=pgsql_parameter['port'],
-                        database=pgsql_parameter['database'],
-                        user=pgsql_parameter['user'],
-                        password=pgsql_parameter['password'])
+conn = psycopg2.connect(host=pgsql_parameter["host"],
+                        port=pgsql_parameter["port"],
+                        database=pgsql_parameter["database"],
+                        user=pgsql_parameter["user"],
+                        password=pgsql_parameter["password"])
 print("Connecting Done")
 
 print("Reading Data ...")
@@ -25,6 +25,7 @@ data = []
 with open(file_path, 'r') as f:
     for idx, line in rich.progress.track(enumerate(f.readlines())):
         raw_data = json.loads(line)
+        raw_data["price"] = float(raw_data["price"][1:])
         data.append({
             "category": raw_data["category"],
             "description": raw_data["description"],
@@ -42,4 +43,15 @@ with open(file_path, 'r') as f:
 print("Reading Done")
 print("Number of rows: {}".format(len(data)))
 
-
+commands = (
+    """
+    CREATE TABLE metadata (
+      asin varchar(255),
+      title varchar(255),
+      brand varchar(255),
+      rank varchar(255),
+      main_car varchar(255),
+      price integer
+    );
+    """
+)
