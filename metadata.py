@@ -32,7 +32,7 @@ commands = (
       title VARCHAR(255),
       brand VARCHAR(255),
       rank VARCHAR(255),
-      main_cat VARCHAR(255),
+      main_cat TEXT,
       price FLOAT
     );
     """,
