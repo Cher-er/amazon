@@ -100,7 +100,6 @@ data = []
 with open(file_path, 'r') as f:
     for line in rich.progress.track(f.readlines(), description="Reading Data ..."):
         raw_data = json.loads(line)
-        raw_data["price"] = float(raw_data["price"][1:]) if raw_data["price"][1:].isdigit() else None
         data.append({
             "category": raw_data["category"],
             "description": raw_data["description"],
@@ -110,11 +109,10 @@ with open(file_path, 'r') as f:
             "feature": raw_data["feature"],
             "rank": raw_data["rank"],
             "also_view": raw_data["also_view"],
-            "main_cat": repr(raw_data["main_cat"]),
-            "price": raw_data["price"],
+            "main_cat": raw_data["main_cat"],
+            "price": float(raw_data["price"][1:]) if raw_data["price"][1:].isdigit() else None,
             "asin": raw_data["asin"],
         })
-
 print("Reading Done")
 print("Number of rows: {}".format(len(data)))
 
