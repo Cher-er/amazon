@@ -46,8 +46,10 @@ conn.commit()
 print("Creating Done")
 
 data = []
+count = 1
 with open(file_path, 'r') as f:
     for line in rich.progress.track(f.readlines(), description="Reading Data ..."):
+        print(f"[Line] {count}")
         raw_data = json.loads(line)
         data.append({
             "reviewerID": raw_data["reviewerID"],
