@@ -7,6 +7,8 @@ file_path = "/home/yc/dataset/amazon/meta_Sports_and_Outdoors.json"
 
 data = []
 with open(file_path, 'r') as f:
+    blank_count = 0
+    range_count = 0
     for line in rich.progress.track(f.readlines(), description="Reading Data ..."):
         raw_data = json.loads(line)
         data.append({
@@ -22,10 +24,7 @@ with open(file_path, 'r') as f:
             "price": float(raw_data["price"][1:]) if isfloat(raw_data["price"][1:]) else None,
             "asin": raw_data["asin"]
         })
-        blank_count = 0
-        range_count = 0
         if not isfloat(raw_data["price"][1:]):
-            print(raw_data["price"], not raw_data["price"], '-' in raw_data["price"])
             if not raw_data["price"]:
                 blank_count += 1
             if '-' in raw_data["price"]:
