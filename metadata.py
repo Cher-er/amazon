@@ -78,7 +78,7 @@ commands = (
     """
     CREATE TABLE feature (
       asin VARCHAR(255),
-      feature VARCHAR(2047)
+      feature VARCHAR(8191)
     );
     """,
     """
@@ -87,7 +87,7 @@ commands = (
     """
     CREATE TABLE description (
       asin VARCHAR(255),
-      description VARCHAR(2047)
+      description VARCHAR(8191)
     );
     """
 )
