@@ -30,8 +30,8 @@ commands = (
     CREATE TABLE metadata (
       asin VARCHAR(255),
       title TEXT,
-      brand VARCHAR(255),
-      rank VARCHAR(255),
+      brand TEXT,
+      rank TEXT,
       main_cat TEXT,
       price FLOAT
     );
