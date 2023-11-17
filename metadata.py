@@ -29,7 +29,7 @@ commands = (
     """
     CREATE TABLE metadata (
       asin VARCHAR(255),
-      title VARCHAR(255),
+      title TEXT,
       brand VARCHAR(255),
       rank VARCHAR(255),
       main_cat TEXT,
