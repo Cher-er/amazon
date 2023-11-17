@@ -56,7 +56,7 @@ with open(file_path, 'r') as f:
             "asin": raw_data["asin"],
             "reviewerName": raw_data["reviewerName"],
             "reviewText": raw_data["reviewText"],
-            "summary": raw_data["summary"],
+            "summary": raw_data["summary"] if "summary" in raw_data else "",
             "unixReviewTime": raw_data["unixReviewTime"]
         })
 print("Reading Done")
