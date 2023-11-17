@@ -18,7 +18,83 @@ conn = psycopg2.connect(host=pgsql_parameter["host"],
                         database=pgsql_parameter["database"],
                         user=pgsql_parameter["user"],
                         password=pgsql_parameter["password"])
+cur = conn.cursor()
 print("Connecting Done")
+
+print("Creating Tables ...")
+commands = (
+    """
+    DROP TABLE IF EXISTS TABLE metadata;
+    """,
+    """
+    CREATE TABLE metadata (
+      asin VARCHAR(255),
+      title VARCHAR(255),
+      brand VARCHAR(255),
+      rank VARCHAR(255),
+      main_cat VARCHAR(255),
+      price FLOAT
+    );
+    """,
+    """
+    DROP TABLE IF EXISTS TABLE category;
+    """,
+    """
+    CREATE TABLE category (
+      cate_id INTEGER,
+      category VARCHAR(255)
+    );
+    """,
+    """
+    DROP TABLE IF EXISTS TABLE meta_cate;
+    """,
+    """
+    CREATE TABLE meta_cate (
+      asin VARCHAR(255),
+      cate_id INTEGER
+    );
+    """,
+    """
+    DROP TABLE IF EXISTS TABLE description;
+    """,
+    """
+    CREATE TABLE description (
+      asin VARCHAR(255),
+      description VARCHAR(255)
+    );
+    """,
+    """
+    DROP TABLE IF EXISTS TABLE also_buy;
+    """,
+    """
+    CREATE TABLE also_buy (
+      asin VARCHAR(255),
+      buy_asin VARCHAR(255)
+    );
+    """,
+    """
+    DROP TABLE IF EXISTS TABLE also_view;
+    """,
+    """
+    CREATE TABLE also_view (
+      asin VARCHAR(255),
+      view_asin VARCHAR(255)
+    );
+    """,
+    """
+    DROP TABLE IF EXISTS TABLE feature;
+    """,
+    """
+    CREATE TABLE feature (
+      asin VARCHAR(255),
+      feature VARCHAR(255)
+    );
+    """
+)
+for command in commands:
+    cur.execute(command)
+cur.commit()
+print("Creating Done")
 
 print("Reading Data ...")
 data = []
@@ -44,15 +120,13 @@ with open(file_path, 'r') as f:
 print("Reading Done")
 print("Number of rows: {}".format(len(data)))
 
-commands = (
-    """
-    CREATE TABLE metadata (
-      asin varchar(255),
-      title varchar(255),
-      brand varchar(255),
-      rank varchar(255),
-      main_car varchar(255),
-      price integer
-    );
-    """
-)
+print("Inserting Data ...")
+for item in data:
+    cur.execute(
+        """
+        INSERT INTO metadata
+        VALUES ({}, {}, {}, {}, {}, {});
+        """.format(item["asin"], item["title"], item["brand"], item["rank"], item["main_cat"], item["price"])
+    )
+cur.commit()
+print("Inserting Done")

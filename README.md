@@ -13,13 +13,13 @@
   
 - metadata
 
-  - 'category': list -> category(cat_id, cate), meta_cat(asin, cat_id)
+  - 'category': list -> category(cate_id, category), meta_cate(asin, cate_id)
 
-  - 'description': list -> description(asin, description:str)
+  - 'description': list -> description(asin, description)
 
   - 'title'
 
-  - 'also_buy': list asin -> also_buy(asin, asin)
+  - 'also_buy': list asin -> also_buy(asin, buy_asin)
 
   - 'brand'
 
