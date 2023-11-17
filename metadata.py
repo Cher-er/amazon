@@ -98,6 +98,8 @@ print("Creating Done")
 
 print("Reading Data ...")
 data = []
+limit = 10
+count = 0
 with open(file_path, 'r') as f:
     for line in rich.progress.track(f.readlines()):
         raw_data = json.loads(line)
@@ -115,6 +117,9 @@ with open(file_path, 'r') as f:
             "price": raw_data["price"],
             "asin": raw_data["asin"],
         })
+        count += 1
+        if count >= limit:
+            break
 
 print("Reading Done")
 print("Number of rows: {}".format(len(data)))
@@ -124,8 +129,8 @@ for item in rich.progress.track(data):
     cur.execute(
         """
         INSERT INTO metadata
-        VALUES ("{}", "{}", "{}", "{}", "{}", {});
-        """.format(item["asin"], item["title"], item["brand"], item["rank"], item["main_cat"], item["price"])
+        VALUES (%s, %s, %s, %s, %s, %f);
+        """, (item["asin"], item["title"], item["brand"], item["rank"], item["main_cat"], item["price"])
     )
 conn.commit()
 print("Inserting Done")
