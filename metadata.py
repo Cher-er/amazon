@@ -24,7 +24,7 @@ print("Connecting Done")
 print("Creating Tables ...")
 commands = (
     """
-    DROP TABLE IF EXISTS TABLE metadata;
+    DROP TABLE IF EXISTS metadata;
     """,
     """
     CREATE TABLE metadata (
@@ -37,7 +37,7 @@ commands = (
     );
     """,
     """
-    DROP TABLE IF EXISTS TABLE category;
+    DROP TABLE IF EXISTS category;
     """,
     """
     CREATE TABLE category (
@@ -46,7 +46,7 @@ commands = (
     );
     """,
     """
-    DROP TABLE IF EXISTS TABLE meta_cate;
+    DROP TABLE IF EXISTS meta_cate;
     """,
     """
     CREATE TABLE meta_cate (
@@ -55,7 +55,7 @@ commands = (
     );
     """,
     """
-    DROP TABLE IF EXISTS TABLE description;
+    DROP TABLE IF EXISTS description;
     """,
     """
     CREATE TABLE description (
@@ -64,7 +64,7 @@ commands = (
     );
     """,
     """
-    DROP TABLE IF EXISTS TABLE also_buy;
+    DROP TABLE IF EXISTS also_buy;
     """,
     """
     CREATE TABLE also_buy (
@@ -73,7 +73,7 @@ commands = (
     );
     """,
     """
-    DROP TABLE IF EXISTS TABLE also_view;
+    DROP TABLE IF EXISTS also_view;
     """,
     """
     CREATE TABLE also_view (
@@ -82,7 +82,7 @@ commands = (
     );
     """,
     """
-    DROP TABLE IF EXISTS TABLE feature;
+    DROP TABLE IF EXISTS feature;
     """,
     """
     CREATE TABLE feature (
