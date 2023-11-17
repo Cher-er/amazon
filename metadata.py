@@ -26,7 +26,7 @@ with open(file_path, 'r') as f:
     for idx, line in rich.progress.track(enumerate(f.readlines())):
         raw_data = json.loads(line)
         print("[Price] {}".format(raw_data["price"]))
-        raw_data["price"] = float(raw_data["price"][1:])
+        raw_data["price"] = float(raw_data["price"][1:]) if raw_data["price"][1:] else None
         data.append({
             "category": raw_data["category"],
             "description": raw_data["description"],
