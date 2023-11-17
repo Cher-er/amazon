@@ -111,7 +111,7 @@ with open(file_path, 'r') as f:
             "feature": raw_data["feature"],
             "rank": raw_data["rank"],
             "also_view": raw_data["also_view"],
-            "main_cat": raw_data["main_cat"],
+            "main_cat": repr(raw_data["main_cat"]),
             "price": raw_data["price"],
             "asin": raw_data["asin"],
         })
@@ -125,7 +125,7 @@ for item in rich.progress.track(data):
         """
         INSERT INTO metadata
         VALUES ("{}", "{}", "{}", "{}", "{}", {});
-        """.format(repr(item["asin"]), repr(item["title"]), repr(item["brand"]), repr(item["rank"]), repr(item["main_cat"]), item["price"])
+        """.format(item["asin"], item["title"], item["brand"], item["rank"], item["main_cat"], item["price"])
     )
 conn.commit()
 print("Inserting Done")
