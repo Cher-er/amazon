@@ -131,7 +131,7 @@ for item in rich.progress.track(data, description="Inserting Data ..."):
     cur.execute(
         """
         INSERT INTO metadata
-        VALUES (%s, %s, %s, %s, %s, %s);
+        VALUES (%s, %s, %s, %s, %s);
         """, (item["asin"],
               sanitize_string(item["title"]),
               sanitize_string(item["brand"]),
