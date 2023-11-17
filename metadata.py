@@ -55,15 +55,6 @@ commands = (
     );
     """,
     """
-    DROP TABLE IF EXISTS description;
-    """,
-    """
-    CREATE TABLE description (
-      asin VARCHAR(255),
-      description VARCHAR(255)
-    );
-    """,
-    """
     DROP TABLE IF EXISTS also_buy;
     """,
     """
@@ -87,7 +78,16 @@ commands = (
     """
     CREATE TABLE feature (
       asin VARCHAR(255),
-      feature VARCHAR(255)
+      feature VARCHAR(2047)
+    );
+    """,
+    """
+    DROP TABLE IF EXISTS description;
+    """,
+    """
+    CREATE TABLE description (
+      asin VARCHAR(255),
+      description VARCHAR(2047)
     );
     """
 )
