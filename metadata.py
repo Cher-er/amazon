@@ -96,7 +96,7 @@ commands = (
     """
     CREATE TABLE rank (
       asin VARCHAR(255),
-      rank VARCHAR(255)
+      rank TEXT
     );
     """
 )
@@ -192,7 +192,7 @@ for item in rich.progress.track(data, description="Inserting Data ..."):
             """
             INSERT INTO rank
             VALUES (%s, %s)
-            """, (item["asin"], rank)
+            """, (item["asin"], sanitize_string(rank))
         )
 conn.commit()
 print("Inserting Done")
