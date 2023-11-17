@@ -119,6 +119,7 @@ print("Number of rows: {}".format(len(data)))
 
 categories = []
 for item in rich.progress.track(data, description="Inserting Data ..."):
+    print(item["rank"])
     # Insert into metadata
     cur.execute(
         """
