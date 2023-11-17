@@ -135,7 +135,7 @@ with open(file_path, 'r') as f:
             "also_view": raw_data["also_view"],
             "main_cat": raw_data["main_cat"],
             "price": float(raw_data["price"][1:]) if isfloat(raw_data["price"][1:]) else None,
-            "asin": raw_data["asin"],
+            "asin": raw_data["asin"]
         })
 print("Reading Done")
 print("Number of rows: {}".format(len(data)))
