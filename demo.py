@@ -22,7 +22,13 @@ with open(file_path, 'r') as f:
             "price": float(raw_data["price"][1:]) if isfloat(raw_data["price"][1:]) else None,
             "asin": raw_data["asin"]
         })
+        blank_count = 0
+        range_count = 0
         if not isfloat(raw_data["price"][1:]):
-            print(f"row {idx} price {raw_data['price']}")
+            if not raw_data["price"]:
+                blank_count += 1
+            if '-' in raw_data["price"]:
+                range_count += 1
 print("Reading Done")
 print("Number of rows: {}".format(len(data)))
+print(f"Blank {blank_count} Range {range_count}")
