@@ -15,6 +15,6 @@ print("Number of rows: {}".format(len(data)))
 
 benchmark = len(data[0].keys())
 print("[benchmark]: {}".format(benchmark))
-for item in rich.progress.track(data):
+for idx, item in rich.progress.track(enumerate(data)):
     if not len(item.keys()) == benchmark:
-        print("[False]: {}".format(len(item.keys())))
+        print("[False]: row {} len {}".format(idx, len(item.keys())))
