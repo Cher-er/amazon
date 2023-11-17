@@ -13,9 +13,7 @@ with open(file_path, 'r') as f:
 print("Reading Done")
 print("Number of rows: {}".format(len(data)))
 
-print(data[0].keys())
-
-# benchmark = len(data[0].keys())
-# for item in rich.progress.track(data):
-#     if not len(item.keys()) == benchmark:
-#         print("False")
+benchmark = len(data[0].keys())
+for item in rich.progress.track(data):
+    if not len(item.keys()) == benchmark:
+        print("False")
