@@ -191,7 +191,6 @@ for item in rich.progress.track(data, description="Inserting Data ..."):
             """, (item["asin"], sanitize_string(description))
         )
     # Insert into rank
-    print(item["rank"])
     for rank in item["rank"]:
         cur.execute(
             """
