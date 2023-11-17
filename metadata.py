@@ -101,7 +101,6 @@ data = []
 with open(file_path, 'r') as f:
     for line in rich.progress.track(f.readlines()):
         raw_data = json.loads(line)
-        print("[Price] {}".format(raw_data["price"]))
         raw_data["price"] = float(raw_data["price"][1:]) if raw_data["price"][1:].isdigit() else None
         data.append({
             "category": raw_data["category"],
