@@ -99,7 +99,7 @@ print("Creating Done")
 print("Reading Data ...")
 data = []
 with open(file_path, 'r') as f:
-    for idx, line in rich.progress.track(enumerate(f.readlines())):
+    for line in rich.progress.track(f.readlines()):
         raw_data = json.loads(line)
         print("[Price] {}".format(raw_data["price"]))
         raw_data["price"] = float(raw_data["price"][1:]) if raw_data["price"][1:].isdigit() else None
@@ -121,7 +121,7 @@ print("Reading Done")
 print("Number of rows: {}".format(len(data)))
 
 print("Inserting Data ...")
-for item in data:
+for item in rich.progress.track(data):
     cur.execute(
         """
         INSERT INTO metadata
