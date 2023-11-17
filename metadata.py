@@ -42,7 +42,7 @@ commands = (
     """
     CREATE TABLE category (
       cate_id INTEGER,
-      category VARCHAR(255)
+      category TEXT
     );
     """,
     """
