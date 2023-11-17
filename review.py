@@ -1,6 +1,7 @@
 import psycopg2
 import json
 import rich.progress
+from utils import sanitize_string
 
 file_path = "/home/yc/dataset/amazon/Sports_and_Outdoors.json"
 
@@ -67,8 +68,14 @@ for item in rich.progress.track(data, description="Inserting Data ..."):
         """
         INSERT INTO review
         VALUES (%s, %s, %s, %s, %s, %s, %s, %s);
-        """, (item["reviewerID"], item["reviewTime"], item["overall"], item["asin"],
-              item["reviewName"], item["reviewText"], item["summary"], item["unixReviewTime"])
+        """, (item["reviewerID"],
+              item["reviewTime"],
+              item["overall"],
+              item["asin"],
+              sanitize_string(item["reviewName"]),
+              sanitize_string(item["reviewText"]),
+              sanitize_string(item["summary"]),
+              item["unixReviewTime"])
     )
 conn.commit()
 print("Inserting Done")

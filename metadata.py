@@ -1,6 +1,7 @@
 import psycopg2
 import json
 import rich.progress
+from utils import sanitize_string
 
 file_path = "/home/yc/dataset/amazon/meta_Sports_and_Outdoors.json"
 
@@ -123,7 +124,12 @@ for item in rich.progress.track(data, description="Inserting Data ..."):
         """
         INSERT INTO metadata
         VALUES (%s, %s, %s, %s, %s, %s);
-        """, (item["asin"], item["title"], item["brand"], item["rank"], item["main_cat"], item["price"])
+        """, (item["asin"],
+              sanitize_string(item["title"]),
+              sanitize_string(item["brand"]),
+              sanitize_string(item["rank"]),
+              sanitize_string(item["main_cat"]),
+              item["price"])
     )
     # Insert into also_buy
     for buy_asin in item["also_buy"]:
@@ -148,7 +154,7 @@ for item in rich.progress.track(data, description="Inserting Data ..."):
                 """
                 INSERT INTO category
                 VALUES (%s, %s)
-                """, (len(category) + 1, category)
+                """, (len(category) + 1, sanitize_string(category))
             )
             categories.append(category)
         cur.execute(
@@ -163,7 +169,7 @@ for item in rich.progress.track(data, description="Inserting Data ..."):
             """
             INSERT INTO feature
             VALUES (%s, %s)
-            """, (item["asin"], feature)
+            """, (item["asin"], sanitize_string(feature))
         )
     # Insert into description
     for description in item["description"]:
@@ -171,7 +177,7 @@ for item in rich.progress.track(data, description="Inserting Data ..."):
             """
             INSERT INTO description
             VALUES (%s, %s)
-            """, (item["asin"], description)
+            """, (item["asin"], sanitize_string(description))
         )
 conn.commit()
 print("Inserting Done")
