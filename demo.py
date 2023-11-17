@@ -7,7 +7,7 @@ data = []
 with open(file_path, 'r') as f:
     for idx, line in rich.progress.track(enumerate(f.readlines()), description="Reading Data ..."):
         raw_data = json.loads(line)
-        print(raw_data["price"][1:].isdigit())
+        print(raw_data["price"], raw_data["price"][1:], raw_data["price"][1:].isdigit())
         data.append({
             "category": raw_data["category"],
             "description": raw_data["description"],
