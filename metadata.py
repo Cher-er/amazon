@@ -32,7 +32,6 @@ commands = (
       asin VARCHAR(255),
       title TEXT,
       brand TEXT,
-      rank TEXT,
       main_cat TEXT,
       price FLOAT
     );
@@ -136,7 +135,6 @@ for item in rich.progress.track(data, description="Inserting Data ..."):
         """, (item["asin"],
               sanitize_string(item["title"]),
               sanitize_string(item["brand"]),
-              sanitize_string(item["rank"]),
               sanitize_string(item["main_cat"]),
               item["price"])
     )
