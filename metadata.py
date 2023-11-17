@@ -129,7 +129,7 @@ for item in rich.progress.track(data):
     cur.execute(
         """
         INSERT INTO metadata
-        VALUES (%s, %s, %s, %s, %s, %f);
+        VALUES (%s, %s, %s, %s, %s, %s);
         """, (item["asin"], item["title"], item["brand"], item["rank"], item["main_cat"], item["price"])
     )
 conn.commit()
