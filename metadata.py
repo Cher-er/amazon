@@ -96,12 +96,10 @@ for command in commands:
 conn.commit()
 print("Creating Done")
 
-print("Reading Data ...")
 data = []
-limit = 10
-count = 0
+limit, count = 100, 0
 with open(file_path, 'r') as f:
-    for line in rich.progress.track(f.readlines()):
+    for line in rich.progress.track(f.readlines(), description="Reading Data ..."):
         raw_data = json.loads(line)
         raw_data["price"] = float(raw_data["price"][1:]) if raw_data["price"][1:].isdigit() else None
         data.append({
@@ -124,13 +122,21 @@ with open(file_path, 'r') as f:
 print("Reading Done")
 print("Number of rows: {}".format(len(data)))
 
-print("Inserting Data ...")
-for item in rich.progress.track(data):
+for item in rich.progress.track(data, description="Inserting Data ..."):
+    # Insert into metadata
     cur.execute(
         """
         INSERT INTO metadata
         VALUES (%s, %s, %s, %s, %s, %s);
         """, (item["asin"], item["title"], item["brand"], item["rank"], item["main_cat"], item["price"])
     )
+    # Insert into also_buy
+    for buy_asin in item["also_buy"]:
+        cur.execute(
+            """
+            INSERT INTO also_buy
+            VALUES (%s, %s)
+            """, (item["asin"], buy_asin)
+        )
 conn.commit()
 print("Inserting Done")
