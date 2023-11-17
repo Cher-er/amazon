@@ -25,6 +25,7 @@ data = []
 with open(file_path, 'r') as f:
     for idx, line in rich.progress.track(enumerate(f.readlines())):
         raw_data = json.loads(line)
+        print("[Price] {}".format(raw_data["price"]))
         raw_data["price"] = float(raw_data["price"][1:])
         data.append({
             "category": raw_data["category"],
