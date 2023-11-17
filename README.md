@@ -23,11 +23,11 @@
 
   - 'brand'
 
-  - 'feature': list -> feature(asin, feature:str)
+  - 'feature': list -> feature(asin, feature)
 
-  - 'rank'
+  - 'rank': list -> rank(asin, rank)
 
-  - 'also_view': list asin -> also_buy(asin, asin)
+  - 'also_view': list asin -> also_buy(asin, view_asin)
 
   - 'main_cat'
 

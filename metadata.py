@@ -90,6 +90,15 @@ commands = (
       asin VARCHAR(255),
       description TEXT
     );
+    """,
+    """
+    DROP TABLE IF EXISTS rank;
+    """,
+    """
+    CREATE TABLE rank (
+      asin VARCHAR(255),
+      rank VARCHAR(255)
+    );
     """
 )
 for command in commands:
@@ -108,7 +117,7 @@ with open(file_path, 'r') as f:
             "also_buy": raw_data["also_buy"],
             "brand": raw_data["brand"],
             "feature": raw_data["feature"],
-            "rank": raw_data["rank"],
+            "rank": raw_data["rank"] if raw_data["rank"] is list else [raw_data["rank"]],
             "also_view": raw_data["also_view"],
             "main_cat": raw_data["main_cat"],
             "price": float(raw_data["price"][1:]) if raw_data["price"][1:].isdigit() else None,
@@ -119,7 +128,6 @@ print("Number of rows: {}".format(len(data)))
 
 categories = []
 for item in rich.progress.track(data, description="Inserting Data ..."):
-    print(item["rank"])
     # Insert into metadata
     cur.execute(
         """
@@ -179,6 +187,14 @@ for item in rich.progress.track(data, description="Inserting Data ..."):
             INSERT INTO description
             VALUES (%s, %s)
             """, (item["asin"], sanitize_string(description))
+        )
+    # Insert into rank
+    for rank in item["rank"]:
+        cur.execute(
+            """
+            INSERT INTO rank
+            VALUES (%s, %s)
+            """, (item["asin"], rank)
         )
 conn.commit()
 print("Inserting Done")
