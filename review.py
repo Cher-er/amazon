@@ -33,9 +33,9 @@ commands = (
       reviewTime VARCHAR(255),
       overall FLOAT,
       asin VARCHAR(255),
-      reviewerName VARCHAR(255),
+      reviewerName TEXT,
       reviewText TEXT,
-      summary VARCHAR(255),
+      summary TEXT,
       unixReviewTime VARCHAR(255)
     );
     """
