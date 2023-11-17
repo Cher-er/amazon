@@ -97,7 +97,7 @@ conn.commit()
 print("Creating Done")
 
 data = []
-limit, count = 100, 0
+limit, count = 10000, 0
 with open(file_path, 'r') as f:
     for line in rich.progress.track(f.readlines(), description="Reading Data ..."):
         raw_data = json.loads(line)
@@ -160,7 +160,7 @@ for item in rich.progress.track(data, description="Inserting Data ..."):
         cur.execute(
             """
             INSERT INTO meta_cate
-            VALUE (%s, %s)
+            VALUES (%s, %s)
             """, (item["asin"], categories.index(category) + 1)
         )
     # Insert into feature
