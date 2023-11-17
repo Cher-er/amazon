@@ -106,6 +106,7 @@ conn.commit()
 print("Creating Done")
 
 data = []
+limit, count = 10000, 0
 with open(file_path, 'r') as f:
     for line in rich.progress.track(f.readlines(), description="Reading Data ..."):
         raw_data = json.loads(line)
@@ -116,12 +117,15 @@ with open(file_path, 'r') as f:
             "also_buy": raw_data["also_buy"],
             "brand": raw_data["brand"],
             "feature": raw_data["feature"],
-            "rank": raw_data["rank"] if raw_data["rank"] is list else [raw_data["rank"]],
+            "rank": raw_data["rank"] if isinstance(raw_data["rank"], list) else [raw_data["rank"]],
             "also_view": raw_data["also_view"],
             "main_cat": raw_data["main_cat"],
             "price": float(raw_data["price"][1:]) if raw_data["price"][1:].isdigit() else None,
             "asin": raw_data["asin"],
         })
+        count += 1
+        if count >= limit:
+            break
 print("Reading Done")
 print("Number of rows: {}".format(len(data)))
 
