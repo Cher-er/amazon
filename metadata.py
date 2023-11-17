@@ -13,7 +13,11 @@ pgsql_parameter = {
 }
 
 print("Connecting PostgreSQL ...")
-conn = psycopg2.connect(*pgsql_parameter)
+conn = psycopg2.connect(host=pgsql_parameter['host'],
+                        port=pgsql_parameter['port'],
+                        database=pgsql_parameter['database'],
+                        user=pgsql_parameter['user'],
+                        password=pgsql_parameter['password'])
 print("Connecting Done")
 
 print("Reading Data ...")
