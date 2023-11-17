@@ -121,12 +121,11 @@ print("Number of rows: {}".format(len(data)))
 
 print("Inserting Data ...")
 for item in rich.progress.track(data):
-    print(item["asin"])
     cur.execute(
         """
         INSERT INTO metadata
         VALUES ("{}", "{}", "{}", "{}", "{}", {});
-        """.format(item["asin"], item["title"], item["brand"], item["rank"], item["main_cat"], item["price"])
+        """.format(repr(item["asin"]), repr(item["title"]), repr(item["brand"]), repr(item["rank"]), repr(item["main_cat"]), item["price"])
     )
 conn.commit()
 print("Inserting Done")
