@@ -33,7 +33,7 @@ commands = (
       reviewTime VARCHAR(255),
       overall FLOAT,
       asin VARCHAR(255),
-      reviewName VARCHAR(255),
+      reviewerName VARCHAR(255),
       reviewText TEXT,
       summary VARCHAR(255),
       unixReviewTime VARCHAR(255)
@@ -54,7 +54,7 @@ with open(file_path, 'r') as f:
             "reviewTime": raw_data["reviewTime"],
             "overall": float(raw_data["overall"]) if raw_data["overall"] else None,
             "asin": raw_data["asin"],
-            "reviewName": raw_data["reviewName"],
+            "reviewerName": raw_data["reviewerName"],
             "reviewText": raw_data["reviewText"],
             "summary": raw_data["summary"],
             "unixReviewTime": raw_data["unixReviewTime"]
@@ -72,7 +72,7 @@ for item in rich.progress.track(data, description="Inserting Data ..."):
               item["reviewTime"],
               item["overall"],
               item["asin"],
-              sanitize_string(item["reviewName"]),
+              sanitize_string(item["reviewerName"]),
               sanitize_string(item["reviewText"]),
               sanitize_string(item["summary"]),
               item["unixReviewTime"])
