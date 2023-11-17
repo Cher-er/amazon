@@ -4,6 +4,18 @@ import rich.progress
 
 file_path = "/home/yc/dataset/amazon/meta_Sports_and_Outdoors.json"
 
+pgsql_parameter = {
+    "host": "localhost",
+    "port": 5433,
+    "database": "amazon",
+    "user": "postgres",
+    "password": "123456",
+}
+
+print("Connecting PostgreSQL ...")
+conn = psycopg2.connect(*pgsql_parameter)
+print("Connecting Done")
+
 print("Reading Data ...")
 data = []
 with open(file_path, 'r') as f:
@@ -22,8 +34,8 @@ with open(file_path, 'r') as f:
             "price": raw_data["price"],
             "asin": raw_data["asin"],
         })
-        if not len(raw_data["description"]) == 1:
-            print("[False] row {} len {}".format(idx, len(raw_data["description"])))
 
 print("Reading Done")
 print("Number of rows: {}".format(len(data)))
+
+
