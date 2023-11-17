@@ -93,7 +93,7 @@ commands = (
 )
 for command in commands:
     cur.execute(command)
-cur.commit()
+conn.commit()
 print("Creating Done")
 
 print("Reading Data ...")
@@ -127,5 +127,5 @@ for item in rich.progress.track(data):
         VALUES ({}, {}, {}, {}, {}, {});
         """.format(item["asin"], item["title"], item["brand"], item["rank"], item["main_cat"], item["price"])
     )
-cur.commit()
+conn.commit()
 print("Inserting Done")
