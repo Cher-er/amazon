@@ -121,6 +121,7 @@ print("Number of rows: {}".format(len(data)))
 
 print("Inserting Data ...")
 for item in rich.progress.track(data):
+    print(item["asin"])
     cur.execute(
         """
         INSERT INTO metadata
