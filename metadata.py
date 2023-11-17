@@ -122,6 +122,7 @@ with open(file_path, 'r') as f:
 print("Reading Done")
 print("Number of rows: {}".format(len(data)))
 
+categories = []
 for item in rich.progress.track(data, description="Inserting Data ..."):
     # Insert into metadata
     cur.execute(
@@ -137,6 +138,46 @@ for item in rich.progress.track(data, description="Inserting Data ..."):
             INSERT INTO also_buy
             VALUES (%s, %s)
             """, (item["asin"], buy_asin)
+        )
+    # Insert into also_view
+    for view_asin in item["also_view"]:
+        cur.execute(
+            """
+            INSERT INTO also_view
+            VALUES (%s, %s)
+            """, (item["asin"], view_asin)
+        )
+    # Insert into category and meta_cate
+    for category in item["category"]:
+        if category not in categories:
+            cur.execute(
+                """
+                INSERT INTO category
+                VALUES (%s, %s)
+                """, (len(category) + 1, category)
+            )
+            categories.append(category)
+        cur.execute(
+            """
+            INSERT INTO meta_cate
+            VALUE (%s, %s)
+            """, (item["asin"], categories.index(category) + 1)
+        )
+    # Insert into feature
+    for feature in item["feature"]:
+        cur.execute(
+            """
+            INSERT INTO feature
+            VALUES (%s, %s)
+            """, (item["asin"], feature)
+        )
+    # Insert into description
+    for description in item["description"]:
+        cur.execute(
+            """
+            INSERT INTO description
+            VALUES (%s, %s)
+            """, (item["asin"], description)
         )
 conn.commit()
 print("Inserting Done")
