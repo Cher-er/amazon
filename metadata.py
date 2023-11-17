@@ -14,6 +14,7 @@ print("Reading Done")
 print("Number of rows: {}".format(len(data)))
 
 benchmark = len(data[0].keys())
+print("[benchmark]: {}".format(benchmark))
 for item in rich.progress.track(data):
     if not len(item.keys()) == benchmark:
-        print("False")
+        print("[False]: {}".format(len(item.keys())))
