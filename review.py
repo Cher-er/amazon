@@ -54,13 +54,13 @@ with open(file_path, 'r') as f:
         raw_data = json.loads(line)
         data.append({
             "reviewerID": raw_data["reviewerID"],
-            "reviewTime": raw_data["reviewTime"],
+            "reviewTime": raw_data["reviewTime"] if "reviewTime" in raw_data else "",
             "overall": float(raw_data["overall"]) if raw_data["overall"] else None,
             "asin": raw_data["asin"],
-            "reviewerName": raw_data["reviewerName"],
-            "reviewText": raw_data["reviewText"],
+            "reviewerName": raw_data["reviewerName"] if "reviewerName" in raw_data else "",
+            "reviewText": raw_data["reviewText"] if "reviewText" in raw_data else "",
             "summary": raw_data["summary"] if "summary" in raw_data else "",
-            "unixReviewTime": raw_data["unixReviewTime"]
+            "unixReviewTime": raw_data["unixReviewTime"] if "unixReviewTime" in raw_data else ""
         })
 print("Reading Done")
 print("Number of rows: {}".format(len(data)))
